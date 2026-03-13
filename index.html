@@ -116,6 +116,72 @@
             position: absolute; top: 10px; right: 15px; font-size: 24px;
             background: none; border: none; color: #666; cursor: pointer;
         }
+        .fab {
+            position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px;
+            background: linear-gradient(135deg, #22C55E, #16A34A);
+            border-radius: 50%; border: none; color: white; font-size: 24px;
+            box-shadow: 0 8px 25px rgba(34,197,94,0.4); cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            z-index: 100;
+        }
+        .fab:hover {
+            transform: scale(1.1); box-shadow: 0 10px 30px rgba(34,197,94,0.5);
+        }
+        .progress-ring {
+            width: 60px; height: 60px; position: relative; margin: 0 auto 10px;
+        }
+        .progress-ring-circle {
+            transform: rotate(-90deg);
+        }
+        .progress-ring-bg {
+            fill: none; stroke: rgba(34,197,94,0.2); stroke-width: 4;
+        }
+        .progress-ring-fill {
+            fill: none; stroke: #22C55E; stroke-width: 4;
+            stroke-linecap: round; transition: stroke-dashoffset 0.5s;
+        }
+        .history-list {
+            max-height: 300px; overflow-y: auto;
+        }
+        .history-item {
+            padding: 12px; border-bottom: 1px solid #f0f0f0;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .history-item:last-child {
+            border-bottom: none;
+        }
+        .history-content {
+            flex: 1;
+        }
+        .history-time {
+            font-size: 12px; color: #666;
+        }
+        .history-value {
+            font-weight: 600; color: #14532D;
+        }
+        .history-actions {
+            display: flex; gap: 8px;
+        }
+        .history-btn {
+            padding: 4px 8px; border: none; border-radius: 4px;
+            font-size: 12px; cursor: pointer;
+        }
+        .edit-btn {
+            background: #3B82F6; color: white;
+        }
+        .delete-btn {
+            background: #EF4444; color: white;
+        }
+        .tab-buttons {
+            display: flex; margin-bottom: 15px;
+        }
+        .tab-btn {
+            flex: 1; padding: 10px; border: none; background: #f8f9fa;
+            font-size: 14px; cursor: pointer;
+        }
+        .tab-btn.active {
+            background: #22C55E; color: white;
+        }
     </style>
 </head>
 <body>
@@ -208,7 +274,146 @@
             </div>
             <button class="btn btn-purple" onclick="openSleepModal()">📝 记录睡眠</button>
         </div>
+
+        <!-- 体重趋势 -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">📈 体重趋势</div>
+                <span style="color: #22C55E; font-size: 14px;">+1.2kg/月</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: end; height: 120px; margin: 15px 0; padding: 0 10px;">
+                <div style="display: flex; flex-direction: column; align-items: center; flex: 1;">
+                    <div style="width: 20px; height: 80px; background: rgba(34,197,94,0.3); border-radius: 4px; margin-bottom: 8px;"></div>
+                    <div style="font-size: 11px; color: #666;">1月</div>
+                </div>
+                <div style="display: flex; flex-direction: column; align-items: center; flex: 1;">
+                    <div style="width: 20px; height: 90px; background: rgba(34,197,94,0.5); border-radius: 4px; margin-bottom: 8px;"></div>
+                    <div style="font-size: 11px; color: #666;">2月</div>
+                </div>
+                <div style="display: flex; flex-direction: column; align-items: center; flex: 1;">
+                    <div style="width: 20px; height: 100px; background: rgba(34,197,94,0.8); border-radius: 4px; margin-bottom: 8px;"></div>
+                    <div style="font-size: 11px; color: #666;">3月</div>
+                </div>
+                <div style="display: flex; flex-direction: column; align-items: center; flex: 1;">
+                    <div style="width: 20px; height: 110px; background: #22C55E; border-radius: 4px; margin-bottom: 8px;"></div>
+                    <div style="font-size: 11px; color: #666;">4月</div>
+                </div>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 12px; color: #666; margin-top: 10px;">
+                <span>63.5kg</span>
+                <span>64.0kg</span>
+                <span>64.5kg</span>
+                <span>65.2kg</span>
+            </div>
+        </div>
+
+        <!-- 营养建议 -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">🥗 营养建议</div>
+            </div>
+            <div style="margin-bottom: 15px;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                    <span style="font-size: 14px;">蛋白质</span>
+                    <span style="font-size: 14px; color: #22C55E;">85/120g</span>
+                </div>
+                <div style="width: 100%; height: 6px; background: #f0f0f0; border-radius: 3px;">
+                    <div style="width: 70%; height: 100%; background: #22C55E; border-radius: 3px;"></div>
+                </div>
+            </div>
+            <div style="margin-bottom: 15px;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                    <span style="font-size: 14px;">碳水化合物</span>
+                    <span style="font-size: 14px; color: #3B82F6;">180/250g</span>
+                </div>
+                <div style="width: 100%; height: 6px; background: #f0f0f0; border-radius: 3px;">
+                    <div style="width: 72%; height: 100%; background: #3B82F6; border-radius: 3px;"></div>
+                </div>
+            </div>
+            <div style="margin-bottom: 15px;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                    <span style="font-size: 14px;">脂肪</span>
+                    <span style="font-size: 14px; color: #F59E0B;">65/80g</span>
+                </div>
+                <div style="width: 100%; height: 6px; background: #f0f0f0; border-radius: 3px;">
+                    <div style="width: 81%; height: 100%; background: #F59E0B; border-radius: 3px;"></div>
+                </div>
+            </div>
+            <div style="padding: 12px; background: rgba(34,197,94,0.1); border-radius: 8px; font-size: 12px;">
+                <strong>💡 建议：</strong>增加优质蛋白质摄入，如鸡胸肉、鱼类、豆制品等，有助于肌肉增长。
+            </div>
+        </div>
+
+
+        <!-- 每日目标完成度 -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">🎯 今日目标</div>
+            </div>
+            <div style="display: flex; justify-content: space-around; align-items: center; margin: 15px 0;">
+                <div style="text-align: center;">
+                    <div class="progress-ring">
+                        <svg class="progress-ring-circle" width="60" height="60">
+                            <circle class="progress-ring-bg" cx="30" cy="30" r="26"/>
+                            <circle class="progress-ring-fill" cx="30" cy="30" r="26" stroke-dasharray="163.36" stroke-dashoffset="49.01"/>
+                        </svg>
+                        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-weight: 600;">67%</div>
+                    </div>
+                    <div style="font-size: 12px; color: #666;">热量摄入</div>
+                </div>
+                <div style="text-align: center;">
+                    <div class="progress-ring">
+                        <svg class="progress-ring-circle" width="60" height="60">
+                            <circle class="progress-ring-bg" cx="30" cy="30" r="26"/>
+                            <circle class="progress-ring-fill" cx="30" cy="30" r="26" stroke-dasharray="163.36" stroke-dashoffset="81.68" style="stroke: #3B82F6;"/>
+                        </svg>
+                        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-weight: 600;">50%</div>
+                    </div>
+                    <div style="font-size: 12px; color: #666;">运动目标</div>
+                </div>
+                <div style="text-align: center;">
+                    <div class="progress-ring">
+                        <svg class="progress-ring-circle" width="60" height="60">
+                            <circle class="progress-ring-bg" cx="30" cy="30" r="26"/>
+                            <circle class="progress-ring-fill" cx="30" cy="30" r="26" stroke-dasharray="163.36" stroke-dashoffset="24.50" style="stroke: #9333EA;"/>
+                        </svg>
+                        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-weight: 600">85%</div>
+                    </div>
+                    <div style="font-size: 12px; color: #666;">睡眠质量</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 历史记录 -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">📋 历史记录</div>
+            </div>
+            <div class="tab-buttons">
+                <button class="tab-btn active" onclick="switchTab('weight')">体重</button>
+                <button class="tab-btn" onclick="switchTab('food')">饮食</button>
+                <button class="tab-btn" onclick="switchTab('exercise')">运动</button>
+                <button class="tab-btn" onclick="switchTab('sleep')">睡眠</button>
+            </div>
+            <div id="historyContent">
+                <div class="history-list" id="weightHistory">
+                    <!-- 体重历史记录将通过JavaScript动态生成 -->
+                </div>
+                <div class="history-list" id="foodHistory" style="display: none;">
+                    <!-- 饮食历史记录将通过JavaScript动态生成 -->
+                </div>
+                <div class="history-list" id="exerciseHistory" style="display: none;">
+                    <!-- 运动历史记录将通过JavaScript动态生成 -->
+                </div>
+                <div class="history-list" id="sleepHistory" style="display: none;">
+                    <!-- 睡眠历史记录将通过JavaScript动态生成 -->
+                </div>
+            </div>
+        </div>
     </div>
+
+    <!-- 浮动操作按钮 -->
+    <button class="fab" onclick="openWeightModal()" title="记录体重">⚖️</button>
 
     <!-- 模态框 -->
     <div id="foodModal" class="modal">
@@ -238,36 +443,228 @@
                     <button class="quick-btn" onclick="quickAddFood('鸡胸肉', 'medium', 150)">鸡胸肉</button>
                     <button class="quick-btn" onclick="quickAddFood('鸡蛋', 'small', 80)">鸡蛋</button>
                     <button class="quick-btn" onclick="quickAddFood('牛奶', 'medium', 170)">牛奶</button>
+                    <button class="quick-btn" onclick="quickAddFood('香蕉', 'small', 105)">香蕉</button>
+                    <button class="quick-btn" onclick="quickAddFood('燕麦', 'medium', 150)">燕麦</button>
+                    <button class="quick-btn" onclick="quickAddFood('坚果', 'small', 180)">坚果</button>
+                    <button class="quick-btn" onclick="quickAddFood('酸奶', 'medium', 120)">酸奶</button>
                 </div>
             </div>
             <button class="btn btn-green" onclick="saveFood()">保存食物</button>
         </div>
     </div>
 
+    <!-- 运动模态框 -->
+    <div id="exerciseModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeExerciseModal()">×</button>
+            <h3 style="margin-bottom: 20px; color: #14532D;">添加运动</h3>
+            <div class="form-group">
+                <label>运动类型</label>
+                <select id="exerciseType">
+                    <option value="strength">力量训练</option>
+                    <option value="cardio">有氧运动</option>
+                    <option value="sports">球类运动</option>
+                    <option value="other">其他运动</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>运动名称</label>
+                <input type="text" id="exerciseName" placeholder="如：杠铃卧推">
+            </div>
+            <div class="form-group">
+                <label>训练详情</label>
+                <input type="text" id="exerciseDetails" placeholder="如：4组 × 8次 × 60kg">
+            </div>
+            <div class="form-group">
+                <label>消耗热量</label>
+                <input type="number" id="exerciseCalories" placeholder="预估消耗热量 (kcal)">
+            </div>
+            <div>
+                <label>快速选择</label>
+                <div class="quick-buttons">
+                    <button class="quick-btn" onclick="quickAddExercise('深蹲', 'strength', '4×10×70kg', 120)">深蹲</button>
+                    <button class="quick-btn" onclick="quickAddExercise('硬拉', 'strength', '4×8×80kg', 140)">硬拉</button>
+                    <button class="quick-btn" onclick="quickAddExercise('引体向上', 'strength', '4×8', 80)">引体向上</button>
+                    <button class="quick-btn" onclick="quickAddExercise('跑步', 'cardio', '30分钟', 200)">跑步</button>
+                </div>
+            </div>
+            <button class="btn btn-blue" onclick="saveExercise()">保存运动</button>
+        </div>
+    </div>
+
+    <!-- 睡眠模态框 -->
+    <div id="sleepModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeSleepModal()">×</button>
+            <h3 style="margin-bottom: 20px; color: #14532D;">记录睡眠</h3>
+            <div class="form-group">
+                <label>入睡时间</label>
+                <input type="time" id="sleepStart" value="22:30">
+            </div>
+            <div class="form-group">
+                <label>起床时间</label>
+                <input type="time" id="sleepEnd" value="06:00">
+            </div>
+            <div class="form-group">
+                <label>睡眠质量</label>
+                <select id="sleepQuality">
+                    <option value="excellent">优秀 (深度睡眠充足)</option>
+                    <option value="good">良好 (睡眠较深)</option>
+                    <option value="fair">一般 (偶尔醒来)</option>
+                    <option value="poor">较差 (多梦易醒)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>备注</label>
+                <input type="text" id="sleepNotes" placeholder="睡眠感受或特殊情况">
+            </div>
+            <button class="btn btn-purple" onclick="saveSleep()">保存睡眠记录</button>
+        </div>
+    </div>
+
+    <!-- 体重记录模态框 -->
+    <div id="weightModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeWeightModal()">×</button>
+            <h3 style="margin-bottom: 20px; color: #14532D;">记录体重</h3>
+            <div class="form-group">
+                <label>当前体重 (kg)</label>
+                <input type="number" id="weightValue" step="0.1" placeholder="输入体重">
+            </div>
+            <div class="form-group">
+                <label>测量时间</label>
+                <input type="datetime-local" id="weightTime">
+            </div>
+            <div class="form-group">
+                <label>备注</label>
+                <input type="text" id="weightNotes" placeholder="如：晨起空腹体重">
+            </div>
+            <button class="btn btn-green" onclick="saveWeight()">保存体重</button>
+        </div>
+    </div>
+
     <script>
+        // 模态框控制函数
         function openFoodModal() {
             document.getElementById('foodModal').style.display = 'block';
         }
         function closeFoodModal() {
             document.getElementById('foodModal').style.display = 'none';
+            // 清空表单
+            document.getElementById('foodName').value = '';
+            document.getElementById('foodAmount').value = 'medium';
+            document.getElementById('foodCalories').value = '';
         }
+
+        function openExerciseModal() {
+            document.getElementById('exerciseModal').style.display = 'block';
+        }
+        function closeExerciseModal() {
+            document.getElementById('exerciseModal').style.display = 'none';
+            document.getElementById('exerciseType').value = 'strength';
+            document.getElementById('exerciseName').value = '';
+            document.getElementById('exerciseDetails').value = '';
+            document.getElementById('exerciseCalories').value = '';
+        }
+
+        function openSleepModal() {
+            document.getElementById('sleepModal').style.display = 'block';
+            // 设置默认时间为当前日期
+            const now = new Date();
+            const today = now.toISOString().split('T')[0];
+            document.getElementById('sleepStart').value = '22:30';
+            document.getElementById('sleepEnd').value = '06:00';
+        }
+        function closeSleepModal() {
+            document.getElementById('sleepModal').style.display = 'none';
+        }
+
+        function openWeightModal() {
+            document.getElementById('weightModal').style.display = 'block';
+            // 设置默认时间为当前时间
+            const now = new Date();
+            const datetime = now.toISOString().slice(0, 16);
+            document.getElementById('weightTime').value = datetime;
+        }
+        function closeWeightModal() {
+            document.getElementById('weightModal').style.display = 'none';
+        }
+
+        // 快速添加功能
         function quickAddFood(name, amount, calories) {
             document.getElementById('foodName').value = name;
             document.getElementById('foodAmount').value = amount;
             document.getElementById('foodCalories').value = calories;
         }
+
+        function quickAddExercise(name, type, details, calories) {
+            document.getElementById('exerciseName').value = name;
+            document.getElementById('exerciseType').value = type;
+            document.getElementById('exerciseDetails').value = details;
+            document.getElementById('exerciseCalories').value = calories;
+        }
+
+        // 保存功能
         function saveFood() {
             const name = document.getElementById('foodName').value;
             const calories = document.getElementById('foodCalories').value;
             if (name && calories) {
-                alert(`已添加：${name} (${calories} kcal)`);
+                // 这里可以添加保存到本地存储或发送到服务器的逻辑
+                alert(`✅ 已添加：${name} (${calories} kcal)`);
                 closeFoodModal();
             } else {
                 alert('请填写完整的食物信息');
             }
         }
-        function openExerciseModal() { alert('运动记录功能'); }
-        function openSleepModal() { alert('睡眠记录功能'); }
+
+        function saveExercise() {
+            const name = document.getElementById('exerciseName').value;
+            const calories = document.getElementById('exerciseCalories').value;
+            if (name && calories) {
+                alert(`✅ 已添加：${name} (消耗 ${calories} kcal)`);
+                closeExerciseModal();
+            } else {
+                alert('请填写完整的运动信息');
+            }
+        }
+
+        function saveSleep() {
+            const startTime = document.getElementById('sleepStart').value;
+            const endTime = document.getElementById('sleepEnd').value;
+            const quality = document.getElementById('sleepQuality').value;
+
+            if (startTime && endTime) {
+                // 计算睡眠时长
+                const start = new Date('2000-01-01 ' + startTime);
+                let end = new Date('2000-01-01 ' + endTime);
+
+                // 如果结束时间小于开始时间，说明跨天了
+                if (end < start) {
+                    end = new Date('2000-01-02 ' + endTime);
+                }
+
+                const duration = (end - start) / (1000 * 60 * 60); // 小时
+                const qualityText = document.getElementById('sleepQuality').options[document.getElementById('sleepQuality').selectedIndex].text;
+
+                alert(`✅ 已记录：睡眠 ${duration.toFixed(1)} 小时，质量：${qualityText}`);
+                closeSleepModal();
+            } else {
+                alert('请填写完整的睡眠时间');
+            }
+        }
+
+        function saveWeight() {
+            const weight = document.getElementById('weightValue').value;
+            const time = document.getElementById('weightTime').value;
+
+            if (weight && time) {
+                alert(`✅ 已记录：体重 ${weight}kg`);
+                closeWeightModal();
+            } else {
+                alert('请填写体重和测量时间');
+            }
+        }
+
 
         // 点击外部关闭模态框
         window.onclick = function(event) {
@@ -275,6 +672,415 @@
                 event.target.style.display = 'none';
             }
         }
+
+        // ESC键关闭模态框
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                document.getElementById('foodModal').style.display = 'none';
+                document.getElementById('exerciseModal').style.display = 'none';
+                document.getElementById('sleepModal').style.display = 'none';
+                document.getElementById('weightModal').style.display = 'none';
+            }
+        });
+
+        // 页面加载完成后设置默认时间
+        document.addEventListener('DOMContentLoaded', function() {
+            const now = new Date();
+            const datetime = now.toISOString().slice(0, 16);
+            if (document.getElementById('weightTime')) {
+                document.getElementById('weightTime').value = datetime;
+            }
+        });
+
+        // 数据管理类
+        class DataManager {
+            constructor() {
+                this.data = {
+                    weight: JSON.parse(localStorage.getItem('weightData') || '[]'),
+                    food: JSON.parse(localStorage.getItem('foodData') || '[]'),
+                    exercise: JSON.parse(localStorage.getItem('exerciseData') || '[]'),
+                    sleep: JSON.parse(localStorage.getItem('sleepData') || '[]')
+                };
+            }
+
+            save(type, item) {
+                const id = Date.now().toString();
+                const record = { ...item, id, timestamp: new Date().toISOString() };
+                this.data[type].unshift(record);
+                localStorage.setItem(type + 'Data', JSON.stringify(this.data[type]));
+                this.renderHistory(type);
+                return id;
+            }
+
+            update(type, id, updatedItem) {
+                const index = this.data[type].findIndex(item => item.id === id);
+                if (index !== -1) {
+                    this.data[type][index] = { ...this.data[type][index], ...updatedItem };
+                    localStorage.setItem(type + 'Data', JSON.stringify(this.data[type]));
+                    this.renderHistory(type);
+                }
+            }
+
+            delete(type, id) {
+                this.data[type] = this.data[type].filter(item => item.id !== id);
+                localStorage.setItem(type + 'Data', JSON.stringify(this.data[type]));
+                this.renderHistory(type);
+            }
+
+            getAll(type) {
+                return this.data[type];
+            }
+
+            renderHistory(type) {
+                const container = document.getElementById(type + 'History');
+                const items = this.data[type].slice(0, 10); // 只显示最近10条记录
+
+                if (items.length === 0) {
+                    container.innerHTML = '<div style="text-align: center; color: #666; padding: 20px;">暂无记录</div>';
+                    return;
+                }
+
+                let html = '';
+                items.forEach(item => {
+                    const time = new Date(item.timestamp).toLocaleString('zh-CN');
+
+                    if (type === 'weight') {
+                        html += `
+                            <div class="history-item">
+                                <div class="history-content">
+                                    <div class="history-value">${item.weight} kg</div>
+                                    <div class="history-time">${time}</div>
+                                    ${item.notes ? `<div style="font-size: 12px; color: #666; margin-top: 4px;">${item.notes}</div>` : ''}
+                                </div>
+                                <div class="history-actions">
+                                    <button class="history-btn edit-btn" onclick="editWeight('${item.id}')">编辑</button>
+                                    <button class="history-btn delete-btn" onclick="deleteRecord('weight', '${item.id}')">删除</button>
+                                </div>
+                            </div>
+                        `;
+                    } else if (type === 'food') {
+                        html += `
+                            <div class="history-item">
+                                <div class="history-content">
+                                    <div class="history-value">${item.name} - ${item.calories} kcal</div>
+                                    <div class="history-time">${time}</div>
+                                    <div style="font-size: 12px; color: #666; margin-top: 4px;">分量: ${getAmountText(item.amount)}</div>
+                                </div>
+                                <div class="history-actions">
+                                    <button class="history-btn edit-btn" onclick="editFood('${item.id}')">编辑</button>
+                                    <button class="history-btn delete-btn" onclick="deleteRecord('food', '${item.id}')">删除</button>
+                                </div>
+                            </div>
+                        `;
+                    } else if (type === 'exercise') {
+                        html += `
+                            <div class="history-item">
+                                <div class="history-content">
+                                    <div class="history-value">${item.name} - ${item.calories} kcal</div>
+                                    <div class="history-time">${time}</div>
+                                    <div style="font-size: 12px; color: #666; margin-top: 4px;">${item.details}</div>
+                                </div>
+                                <div class="history-actions">
+                                    <button class="history-btn edit-btn" onclick="editExercise('${item.id}')">编辑</button>
+                                    <button class="history-btn delete-btn" onclick="deleteRecord('exercise', '${item.id}')">删除</button>
+                                </div>
+                            </div>
+                        `;
+                    } else if (type === 'sleep') {
+                        const duration = calculateSleepDuration(item.startTime, item.endTime);
+                        html += `
+                            <div class="history-item">
+                                <div class="history-content">
+                                    <div class="history-value">${item.startTime} - ${item.endTime} (${duration}h)</div>
+                                    <div class="history-time">${time}</div>
+                                    <div style="font-size: 12px; color: #666; margin-top: 4px;">质量: ${getQualityText(item.quality)}</div>
+                                </div>
+                                <div class="history-actions">
+                                    <button class="history-btn edit-btn" onclick="editSleep('${item.id}')">编辑</button>
+                                    <button class="history-btn delete-btn" onclick="deleteRecord('sleep', '${item.id}')">删除</button>
+                                </div>
+                            </div>
+                        `;
+                    }
+                });
+
+                if (html === '') {
+                    html = `
+                        <div style="text-align: center; padding: 40px 20px; color: #666;">
+                            <div style="font-size: 48px; margin-bottom: 16px;">😴</div>
+                            <div style="font-size: 16px; margin-bottom: 8px;">还没有睡眠记录</div>
+                            <div style="font-size: 14px;">点击"记录睡眠"开始追踪您的睡眠质量</div>
+                        </div>
+                    `;
+                }
+
+                container.innerHTML = html;
+            }
+        }
+
+        // 全局数据管理器实例
+        const dataManager = new DataManager();
+
+        // 辅助函数
+        function getAmountText(amount) {
+            const map = { small: '少量', medium: '中等', large: '大量' };
+            return map[amount] || amount;
+        }
+
+        function getQualityText(quality) {
+            const map = {
+                excellent: '优秀',
+                good: '良好',
+                fair: '一般',
+                poor: '较差'
+            };
+            return map[quality] || quality;
+        }
+
+        function calculateSleepDuration(start, end) {
+            const startTime = new Date('2000-01-01 ' + start);
+            let endTime = new Date('2000-01-01 ' + end);
+            if (endTime < startTime) {
+                endTime = new Date('2000-01-02 ' + end);
+            }
+            return ((endTime - startTime) / (1000 * 60 * 60)).toFixed(1);
+        }
+
+        function updateSleepDisplay() {
+            const sleepData = dataManager.getAll('sleep');
+            if (sleepData.length > 0) {
+                const latest = sleepData[0];
+                const duration = calculateSleepDuration(latest.startTime, latest.endTime);
+
+                // 更新睡眠时长显示
+                const sleepStats = document.querySelectorAll('.stat-label');
+                sleepStats.forEach(stat => {
+                    if (stat.textContent === '睡眠时长') {
+                        stat.previousElementSibling.textContent = duration + 'h';
+                    }
+                });
+
+                // 更新睡眠记录卡片
+                const sleepCard = document.querySelector('.card-title');
+                if (sleepCard && sleepCard.textContent.includes('睡眠记录')) {
+                    const nextSpan = sleepCard.nextElementSibling;
+                    if (nextSpan) {
+                        nextSpan.textContent = `${duration}/8 小时`;
+                    }
+
+                    // 更新睡眠时间显示
+                    const sleepInfoDiv = document.querySelector('.sleep-info');
+                    if (sleepInfoDiv) {
+                        const timeDiv = sleepInfoDiv.querySelector('div[style*="text-align: right"]');
+                        if (timeDiv) {
+                            timeDiv.innerHTML = `
+                                <div style="font-weight: 600;">${latest.startTime} - ${latest.endTime}</div>
+                                <div style="font-size: 12px; color: #666; margin-top: 4px;">${getQualityText(latest.quality)}</div>
+                            `;
+                        }
+                    }
+                }
+            }
+        }
+
+        // 增强的保存功能
+        function saveFood() {
+            const name = document.getElementById('foodName').value;
+            const amount = document.getElementById('foodAmount').value;
+            const calories = document.getElementById('foodCalories').value;
+
+            if (name && calories) {
+                const foodData = {
+                    name: name,
+                    amount: amount,
+                    calories: parseInt(calories)
+                };
+
+                if (editingFoodId) {
+                    dataManager.update('food', editingFoodId, foodData);
+                    editingFoodId = null;
+                } else {
+                    dataManager.save('food', foodData);
+                }
+
+                alert(`✅ 已保存：${name} (${calories} kcal)`);
+                closeFoodModal();
+            } else {
+                alert('请填写完整的食物信息');
+            }
+        }
+
+        function saveExercise() {
+            const type = document.getElementById('exerciseType').value;
+            const name = document.getElementById('exerciseName').value;
+            const details = document.getElementById('exerciseDetails').value;
+            const calories = document.getElementById('exerciseCalories').value;
+
+            if (name && calories) {
+                const exerciseData = {
+                    type: type,
+                    name: name,
+                    details: details,
+                    calories: parseInt(calories)
+                };
+
+                if (editingExerciseId) {
+                    dataManager.update('exercise', editingExerciseId, exerciseData);
+                    editingExerciseId = null;
+                } else {
+                    dataManager.save('exercise', exerciseData);
+                }
+
+                alert(`✅ 已保存：${name} (消耗 ${calories} kcal)`);
+                closeExerciseModal();
+            } else {
+                alert('请填写完整的运动信息');
+            }
+        }
+
+        function saveSleep() {
+            const startTime = document.getElementById('sleepStart').value;
+            const endTime = document.getElementById('sleepEnd').value;
+            const quality = document.getElementById('sleepQuality').value;
+            const notes = document.getElementById('sleepNotes').value;
+
+            if (startTime && endTime) {
+                const sleepData = {
+                    startTime: startTime,
+                    endTime: endTime,
+                    quality: quality,
+                    notes: notes
+                };
+
+                if (editingSleepId) {
+                    dataManager.update('sleep', editingSleepId, sleepData);
+                    editingSleepId = null;
+                } else {
+                    dataManager.save('sleep', sleepData);
+                }
+
+                const duration = calculateSleepDuration(startTime, endTime);
+                alert(`✅ 已保存：睡眠 ${duration} 小时`);
+                closeSleepModal();
+                updateSleepDisplay();
+            } else {
+                alert('请填写完整的睡眠时间');
+            }
+        }
+
+        function saveWeight() {
+            const weight = document.getElementById('weightValue').value;
+            const time = document.getElementById('weightTime').value;
+            const notes = document.getElementById('weightNotes').value;
+
+            if (weight && time) {
+                const weightData = {
+                    weight: parseFloat(weight),
+                    time: time,
+                    notes: notes
+                };
+
+                if (editingWeightId) {
+                    dataManager.update('weight', editingWeightId, weightData);
+                    editingWeightId = null;
+                } else {
+                    dataManager.save('weight', weightData);
+                }
+
+                alert(`✅ 已保存：体重 ${weight}kg`);
+                closeWeightModal();
+            } else {
+                alert('请填写体重和测量时间');
+            }
+        }
+
+        // 编辑功能
+        let editingFoodId = null;
+        let editingExerciseId = null;
+        let editingSleepId = null;
+        let editingWeightId = null;
+
+        function editFood(id) {
+            const items = dataManager.getAll('food');
+            const item = items.find(item => item.id === id);
+            if (item) {
+                editingFoodId = id;
+                document.getElementById('foodName').value = item.name;
+                document.getElementById('foodAmount').value = item.amount;
+                document.getElementById('foodCalories').value = item.calories;
+                openFoodModal();
+            }
+        }
+
+        function editExercise(id) {
+            const items = dataManager.getAll('exercise');
+            const item = items.find(item => item.id === id);
+            if (item) {
+                editingExerciseId = id;
+                document.getElementById('exerciseType').value = item.type;
+                document.getElementById('exerciseName').value = item.name;
+                document.getElementById('exerciseDetails').value = item.details;
+                document.getElementById('exerciseCalories').value = item.calories;
+                openExerciseModal();
+            }
+        }
+
+        function editSleep(id) {
+            const items = dataManager.getAll('sleep');
+            const item = items.find(item => item.id === id);
+            if (item) {
+                editingSleepId = id;
+                document.getElementById('sleepStart').value = item.startTime;
+                document.getElementById('sleepEnd').value = item.endTime;
+                document.getElementById('sleepQuality').value = item.quality;
+                document.getElementById('sleepNotes').value = item.notes || '';
+                openSleepModal();
+            }
+        }
+
+        function editWeight(id) {
+            const items = dataManager.getAll('weight');
+            const item = items.find(item => item.id === id);
+            if (item) {
+                editingWeightId = id;
+                document.getElementById('weightValue').value = item.weight;
+                document.getElementById('weightTime').value = item.time;
+                document.getElementById('weightNotes').value = item.notes || '';
+                openWeightModal();
+            }
+        }
+
+        function deleteRecord(type, id) {
+            if (confirm('确定要删除这条记录吗？')) {
+                dataManager.delete(type, id);
+                // 清除编辑状态
+                if (type === 'food') editingFoodId = null;
+                if (type === 'exercise') editingExerciseId = null;
+                if (type === 'sleep') editingSleepId = null;
+                if (type === 'weight') editingWeightId = null;
+            }
+        }
+
+        function switchTab(type) {
+            // 更新标签按钮状态
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // 显示对应的历史记录
+            document.querySelectorAll('.history-list').forEach(list => {
+                list.style.display = 'none';
+            });
+            document.getElementById(type + 'History').style.display = 'block';
+        }
+
+        // 页面加载时初始化历史记录
+        document.addEventListener('DOMContentLoaded', function() {
+            dataManager.renderHistory('weight');
+            dataManager.renderHistory('food');
+            dataManager.renderHistory('exercise');
+            dataManager.renderHistory('sleep');
+            updateSleepDisplay();
+        });
     </script>
 </body>
 </html>
